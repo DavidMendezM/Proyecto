@@ -19,13 +19,7 @@ import streamlit as st
 import traceback
 
 try:
-    # TODO: Aquí va TODO tu código Streamlit
-    # ...
-except Exception as e:
-    st.error("Ocurrió un error al ejecutar la aplicación:")
-    st.error(str(e))
-    st.text(traceback.format_exc())
-    
+  
 st.set_page_config(page_title="Análisis de Fumadores", layout="wide")
 st.title("PCA y Selección de Variables - Data Smoking")
 
@@ -185,3 +179,8 @@ st.write("Data transformada por PCA:", X_pca_transformed_df.shape)
 st.write(X_pca_transformed_df.head())
 fig = px.scatter_matrix(X_pca_transformed_df)
 st.plotly_chart(fig)
+
+except Exception as e:
+    st.error("Ocurrió un error al ejecutar la aplicación:")
+    st.error(str(e))
+    st.text(traceback.format_exc())
