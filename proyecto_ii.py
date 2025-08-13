@@ -15,7 +15,17 @@ from sklearn.preprocessing import StandardScaler
 from imblearn.over_sampling import SMOTE
 from numpy import mean, std
 
+import streamlit as st
+import traceback
 
+try:
+    # TODO: Aquí va TODO tu código Streamlit
+    # ...
+except Exception as e:
+    st.error("Ocurrió un error al ejecutar la aplicación:")
+    st.error(str(e))
+    st.text(traceback.format_exc())
+    
 st.set_page_config(page_title="Análisis de Fumadores", layout="wide")
 st.title("PCA y Selección de Variables - Data Smoking")
 
