@@ -13,6 +13,7 @@ from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 from imblearn.over_sampling import SMOTE
 from numpy import mean, std
+import io
 
 st.set_page_config(page_title="Análisis de Fumadores", layout="wide")
 st.title("PCA y Selección de Variables - Data Smoking")
@@ -27,9 +28,9 @@ def load_data():
 df = load_data()
 
 st.subheader("Información inicial del DataFrame")
-buffer = []
+buffer = io.StringIO()
 df.info(buf=buffer)
-info_str = '\n'.join(buffer)
+info_str = buffer.getvalue()
 st.text(info_str)
 st.write("Descripción estadística:", df.describe())
 st.write("Valores nulos por columna:", df.isnull().sum())
