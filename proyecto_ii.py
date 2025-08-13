@@ -9,17 +9,10 @@ import plotly.express as px
 from pandas import read_csv
 from sklearn.datasets import make_classification
 from sklearn.decomposition import PCA
-from sklearn.feature_selection import (
-    SelectKBest, chi2, f_classif, mutual_info_classif
-)
+from sklearn.feature_selection import (SelectKBest, chi2, f_classif, mutual_info_classif)
 from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import (
-    accuracy_score, precision_score, recall_score,
-    f1_score, roc_auc_score
-)
-from sklearn.model_selection import (
-    train_test_split, GridSearchCV, RepeatedStratifiedKFold, cross_val_score
-)
+from sklearn.metrics import (accuracy_score, precision_score, recall_score,f1_score, roc_auc_score)
+from sklearn.model_selection import (train_test_split, GridSearchCV, RepeatedStratifiedKFold, cross_val_score)
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler, LabelEncoder, OrdinalEncoder
 from imblearn.over_sampling import SMOTE
