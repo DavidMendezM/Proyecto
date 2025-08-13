@@ -159,28 +159,21 @@ try:
 
     # --- Dataset sintético para comparación PCA ---
     st.markdown("**Dataset sintético para comparación PCA**")
-    @st.cache_data
-    def get_dataset():
-        X, y = make_classification(n_samples=1000, n_features=25, n_informative=20, n_redundant=5, random_state=7)
-        return X, y
-
     def get_models():
         models = dict()
-        for i in range(1, 21):
-            steps = [('pca', PCA(n_components=i)), ('m', LogisticRegression())]
+        for i in range(1, 16):  # Hasta 15 componentes, puedes subirlo si tu máquina lo aguanta
+            steps = [('pca', PCA(n_components=i)), ('m', LogisticRegression(solver='liblinear', max_iter=500))]
             models[str(i)] = Pipeline(steps=steps)
         return models
 
     def evaluate_model(model, X, y):
-        cv = RepeatedStratifiedKFold(n_splits=10, n_repeats=3, random_state=1)
+        cv = RepeatedStratifiedKFold(n_splits=3, n_repeats=1, random_state=1)  # Optimizado para todo el dataset
         scores = cross_val_score(model, X, y, scoring='accuracy', cv=cv, n_jobs=-1)
         return scores
 
-    X, y = get_dataset()
-
-    st.subheader("Dataset generado")
-    st.write("Shape:", X.shape)
-    st.write(pd.DataFrame(X).head())
+    # Usa todo el dataset real (balanceado)
+    X_pca = X
+    y_pca = y
 
     models = get_models()
 
@@ -188,7 +181,7 @@ try:
     results, names = list(), list()
     progress = st.progress(0)
     for idx, (name, model) in enumerate(models.items()):
-        scores = evaluate_model(model, X, y)
+        scores = evaluate_model(model, X_pca, y_pca)
         results.append(scores)
         names.append(name)
         st.write(f'Componentes: {name} | Accuracy media: {mean(scores):.3f} (std: {std(scores):.3f})')
@@ -203,11 +196,11 @@ try:
     st.pyplot(fig)
 
     st.subheader("Entrenamiento final con 15 componentes PCA")
-    steps = [('pca', PCA(n_components=15)), ('m', LogisticRegression())]
+    steps = [('pca', PCA(n_components=15)), ('m', LogisticRegression(solver='liblinear', max_iter=500))]
     model = Pipeline(steps=steps)
-    model.fit(X, y)
+    model.fit(X_pca, y_pca)
     pca_step = model.named_steps['pca']
-    X_pca_transformed = pca_step.transform(X)
+    X_pca_transformed = pca_step.transform(X_pca)
     pca_columns = [f'Principal_Component_{i+1}' for i in range(X_pca_transformed.shape[1])]
     X_pca_transformed_df = pd.DataFrame(X_pca_transformed, columns=pca_columns)
 
