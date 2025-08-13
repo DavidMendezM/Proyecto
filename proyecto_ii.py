@@ -92,7 +92,7 @@ try:
     st.write('Prueba:', X_test.shape, y_test.shape)
 
     #st.subheader("5. Selección de variables numéricas (ANOVA)")
-    cv = RepeatedStratifiedKFold(n_splits=3 n_repeats=1, random_state=1)
+    cv = RepeatedStratifiedKFold(n_splits=3, n_repeats=1, random_state=1)
     #model = LogisticRegression(solver='liblinear')
     #fs = SelectKBest(score_func=f_classif)
     #pipeline = Pipeline(steps=[('anova',fs), ('lr', model)])
