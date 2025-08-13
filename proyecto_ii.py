@@ -91,17 +91,17 @@ try:
     st.write('Entrenamiento:', X_train.shape, y_train.shape)
     st.write('Prueba:', X_test.shape, y_test.shape)
 
-    st.subheader("5. Selección de variables numéricas (ANOVA)")
-    cv = RepeatedStratifiedKFold(n_splits=10, n_repeats=3, random_state=1)
-    model = LogisticRegression(solver='liblinear')
-    fs = SelectKBest(score_func=f_classif)
-    pipeline = Pipeline(steps=[('anova',fs), ('lr', model)])
-    grid = dict()
-    grid['anova__k'] = [i+1 for i in range(X_train.shape[1])]
-    search = GridSearchCV(pipeline, grid, scoring='accuracy', n_jobs=-1, cv=cv)
-    results = search.fit(X_train, y_train)
-    st.write('Mejor precisión media:', results.best_score_)
-    st.write('Mejor configuración:', results.best_params_)
+    #st.subheader("5. Selección de variables numéricas (ANOVA)")
+    #cv = RepeatedStratifiedKFold(n_splits=10, n_repeats=3, random_state=1)
+    #model = LogisticRegression(solver='liblinear')
+    #fs = SelectKBest(score_func=f_classif)
+    #pipeline = Pipeline(steps=[('anova',fs), ('lr', model)])
+    #grid = dict()
+    #grid['anova__k'] = [i+1 for i in range(X_train.shape[1])]
+    #search = GridSearchCV(pipeline, grid, scoring='accuracy', n_jobs=-1, cv=cv)
+    #results = search.fit(X_train, y_train)
+    #st.write('Mejor precisión media:', results.best_score_)
+    #st.write('Mejor configuración:', results.best_params_)
 
     st.subheader("Prueba F de ANOVA")
     def select_features(X_train, y_train, X_test, score_func, k):
