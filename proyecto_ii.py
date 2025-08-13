@@ -1,3 +1,4 @@
+import io
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -13,7 +14,7 @@ from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 from imblearn.over_sampling import SMOTE
 from numpy import mean, std
-import io
+
 
 st.set_page_config(page_title="Análisis de Fumadores", layout="wide")
 st.title("PCA y Selección de Variables - Data Smoking")
