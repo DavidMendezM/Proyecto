@@ -34,11 +34,11 @@ Implementa dos metodologías:
 - **Filtro (SelectKBest)**: Selecciona variables numéricas con mayor relación estadística (ANOVA) con la clase objetivo.
 - **Funciones de información mutua (mutual_info_classif)**: La información mutua es sencilla al considerar la distribución de dos variables discretas
 
-### 3. **Modelado y ajustes de las caracetrísticas seleccionadas**
+### 4. **Modelado y ajustes de las caracetrísticas seleccionadas**
 - Para cada método de selección se evalúa la capacidad predictiva mediante `cross_val_score` sobre un clasificador (Regresión Logística). Así se mide la consistencia y evita overfitting.
 - Dataset resultante de la reducción de variables.
 
-### 4. **PCA (Análisis de Componentes Principales)**
+### 5. **PCA (Análisis de Componentes Principales)**
 - Reducción de dimensionalidad tras aplicar SMOTE y selección RFE.
 - Visualización gráfica del espacio PCA
 - Dataset resultante del PCA
