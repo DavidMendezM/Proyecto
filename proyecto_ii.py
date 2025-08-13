@@ -1,3 +1,52 @@
+import os
+import zipfile
+import shutil
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import plotly.express as px
+
+from pandas import read_csv
+from sklearn.datasets import make_classification
+from sklearn.decomposition import PCA
+from sklearn.feature_selection import (
+    SelectKBest, chi2, f_classif, mutual_info_classif
+)
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import (
+    accuracy_score, precision_score, recall_score,
+    f1_score, roc_auc_score
+)
+from sklearn.model_selection import (
+    train_test_split, GridSearchCV, RepeatedStratifiedKFold, cross_val_score
+)
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler, LabelEncoder, OrdinalEncoder
+from imblearn.over_sampling import SMOTE
+
+from numpy import mean, std
+
+st.set_page_config(page_title="Smoking Análisis", layout="wide")
+st.title("PCA y Selección de Variables Data Smoking")
+
+@st.cache_data
+def load_data():
+    url = "https://raw.githubusercontent.com/jflorez-giraldo/Nhanes-streamlit/main/nhanes_2015_2016.csv"
+    df = pd.read_csv(url)
+    df.columns = df.columns.str.strip()
+    return df
+
+df = load_data()
+
+
+
+
+
+
+
+
 # -*- coding: utf-8 -*-
 """Proyecto II.ipynb
 
@@ -20,32 +69,18 @@ path = kagglehub.dataset_download("kukuroo3/body-signal-of-smoking")
 
 print("Path to dataset files:", path)
 
-import os
-import zipfile
-import plotly.express as px
-import pandas as pd
-import numpy as np
-import seaborn as sns
-import matplotlib.pyplot as plt
-from sklearn.preprocessing import StandardScaler
-from pandas import read_csv
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import LabelEncoder
-from sklearn.preprocessing import OrdinalEncoder
-from sklearn.feature_selection import SelectKBest
-from sklearn.feature_selection import chi2
-from matplotlib import pyplot
+
 
 for dirname, _, filenames in os.walk(path):
     for filename in filenames:
         print(os.path.join(dirname, filename))
 
-import pandas as pd
+
 file_path = os.path.join(path, "smoking.csv")
 df = pd.read_csv(file_path)
 df.head()
 
-import shutil
+
 shutil.copytree(path, "/content/drive/MyDrive/Machine_Learning/Proyecto_clase", dirs_exist_ok=True)
 
 print("--- Información del DataFrame ---")
@@ -57,8 +92,7 @@ df.isnull().sum()
 
 df = df.drop(["ID","oral"], axis=1) # eliminamos ID y oral
 
-import matplotlib.pyplot as plt
-import seaborn as sns
+
 variables = ['triglyceride', 'serum creatinine', 'systolic']
 plt.figure(figsize=(15, 10))
 for i, variable in enumerate(variables, 1):
@@ -68,8 +102,7 @@ for i, variable in enumerate(variables, 1):
 plt.tight_layout()
 plt.show()
 
-import matplotlib.pyplot as plt
-import seaborn as sns
+
 
 fig, axes = plt.subplots(1, 2, figsize=(12, 5))
 
@@ -113,7 +146,7 @@ y = df['smoking']
 print("Shape of X:", X.shape)
 print("Shape of y:", y.shape)
 
-from imblearn.over_sampling import SMOTE
+
 
 smote = SMOTE(random_state=42)
 X_resampled, y_resampled = smote.fit_resample(X, y)
@@ -123,9 +156,7 @@ print(y_resampled.value_counts())
 
 """3.PREPARACIÓN DE LOS DATOS"""
 
-from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, roc_auc_score
+
 
 X_train, X_test, y_train, y_test = train_test_split(X_resampled, y_resampled, test_size=0.2, random_state=42)
 
@@ -137,11 +168,7 @@ X_train.head()
 print('Train', X_train.shape, y_train.shape)
 print('Test', X_test.shape, y_test.shape)
 
-from sklearn.pipeline import Pipeline
-from sklearn.model_selection import GridSearchCV
-from sklearn.model_selection import RepeatedStratifiedKFold
-from sklearn.feature_selection import f_classif # Using f_classif as an example, you can also use mutual_info_classif
-from sklearn.linear_model import LogisticRegression
+
 
 # define the evaluation method
 cv = RepeatedStratifiedKFold(n_splits=10, n_repeats=3, random_state=1)
@@ -168,8 +195,6 @@ print('Best Config: %s' % results.best_params_)
 
 """prueba F de ANOVA"""
 
-from sklearn.feature_selection import f_classif, SelectKBest
-from matplotlib import pyplot
 
 # define feature selection function
 def select_features(X_train, y_train, X_test, score_func, k):
@@ -196,8 +221,7 @@ pyplot.show()
 
 """Selección de funciones de información mutua"""
 
-from sklearn.feature_selection import mutual_info_classif, SelectKBest
-from matplotlib import pyplot
+
 
 # define feature selection function (reusing the previous one)
 def select_features(X_train, y_train, X_test, score_func, k):
@@ -270,9 +294,7 @@ print('Accuracy: %.2f' % (accuracy*100))
 
 """Ajuste el número de funciones seleccionadas"""
 
-from sklearn.pipeline import Pipeline
-from sklearn.model_selection import GridSearchCV
-from sklearn.model_selection import RepeatedStratifiedKFold
+
 
 # define the evaluation method
 cv = RepeatedStratifiedKFold(n_splits=10, n_repeats=3, random_state=1)
@@ -298,9 +320,7 @@ results = search.fit(X, y)
 print('Best Mean Accuracy: %.3f' % results.best_score_)
 print('Best Config: %s' % results.best_params_)
 
-from sklearn.model_selection import cross_val_score
-from numpy import mean
-from numpy import std
+
 
 # evaluate a given model using cross-validation
 def evaluate_model(model):
@@ -329,7 +349,7 @@ for k in num_features:
 pyplot.boxplot(results, tick_labels=num_features, showmeans=True)
 pyplot.show()
 
-from sklearn.feature_selection import SelectKBest, f_classif
+
 
 # Select the top 18 features based on f_classif scores
 selector = SelectKBest(score_func=f_classif, k=18)
@@ -347,15 +367,7 @@ display(X_selected_df.head())
 
 """PCA"""
 
-from numpy import mean
-from numpy import std
-from sklearn.datasets import make_classification
-from sklearn.model_selection import cross_val_score
-from sklearn.model_selection import RepeatedStratifiedKFold
-from sklearn.pipeline import Pipeline
-from sklearn.decomposition import PCA
-from sklearn.linear_model import LogisticRegression
-from matplotlib import pyplot
+
 
 # get the dataset
 def get_dataset():
