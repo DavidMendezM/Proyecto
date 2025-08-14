@@ -206,7 +206,7 @@ Se realiza validación cruzada para calcular el K óptimo para la Selección de 
     model.fit(X_train, y_train)
     yhat = model.predict(X_test)
     accuracy = accuracy_score(y_test, yhat)
-    st.write('Precisión (todas las variables): %.2f' % (accuracy*100))
+    st.write('accuracy(todas las variables): %.2f' % (accuracy*100))
 
     st.subheader("Modelo usando características ANOVA")
     X_train_fs, X_test_fs, fs = select_features(X_train, y_train, X_test, f_classif, 18)
@@ -214,7 +214,7 @@ Se realiza validación cruzada para calcular el K óptimo para la Selección de 
     model.fit(X_train_fs, y_train)
     yhat = model.predict(X_test_fs)
     accuracy = accuracy_score(y_test, yhat)
-    st.write('Precisión (ANOVA): %.2f' % (accuracy*100))
+    st.write('accuracy(ANOVA): %.2f' % (accuracy*100))
 
     st.subheader("Modelo usando características de información mutua")
     X_train_fs, X_test_fs, fs = select_features(X_train, y_train, X_test, mutual_info_classif, 4)
@@ -222,7 +222,7 @@ Se realiza validación cruzada para calcular el K óptimo para la Selección de 
     model.fit(X_train_fs, y_train)
     yhat = model.predict(X_test_fs)
     accuracy = accuracy_score(y_test, yhat)
-    st.write('Precisión (Información mutua): %.2f' % (accuracy*100))
+    st.write('accuracy(Información mutua): %.2f' % (accuracy*100))
     
     st.subheader("Ajuste del número de variables seleccionadas")
     num_features = [i+1 for i in range(X.shape[1])]
@@ -248,6 +248,10 @@ Se realiza validación cruzada para calcular el K óptimo para la Selección de 
     X_selected_df = pd.DataFrame(X_selected, columns=selected_feature_names)
     st.write("Data set con las mejores características", X_selected_df.shape)
     st.write(X_selected_df.head())
+    st.markdown("""
+    El mejor modelo para la selección de variables es: 
+    ** ** , ya que presenta un valor mayor de exactitud. 
+""")
 
     st.markdown("PCA**")
     def get_models():
@@ -297,6 +301,9 @@ Se realiza validación cruzada para calcular el K óptimo para la Selección de 
 
     st.write("Shape del dataset transformado:", X_pca_transformed_df.shape)
     st.write(X_pca_transformed_df.head())
+    st.markdown("""
+    En el método de análisis de componente principales (PCA), se observa que con 15 componentes se logra explicar **el 72% de exactitud**. 
+""")
 
 except Exception as e:
     st.error("Ocurrió un error al ejecutar la aplicación:")
