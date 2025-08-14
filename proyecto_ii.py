@@ -36,7 +36,7 @@ try:
             "Visión del ojo izquierdo", "Visión del ojo derecho", "Audición del oído izquierdo", "Audición del oído derecho",
             "Presión arterial sistólica", "Presión arterial en relajación", "Glucosa en sangre en ayunas", "Colesterol total", "Triglicéridos",
             "Tipo de colesterol HDL", "Tipo de colesterol LDL", "Hemoglobina", "Proteína en orina", "Creatinina en suero",
-            "Transaminasa glutámico-oxalacética (AST)", "Transaminasa glutámico-oxalacética (ALT)", "γ-GTP (guanosín trifosfato)",
+            "(AST - aspartato aminotransferasa)", "(ALT - alanina aminotransferasa)", "γ-GTP (guanosín trifosfato)",
             "Estado del examen oral", "Presencia de caries", "Estado del sarro", "Estado de fumador"
         ]
     }
@@ -115,8 +115,11 @@ La diferencia es más marcada en el grupo con sarro, lo que podría indicar una 
 adecuada.
 """)
     st.markdown("""
+
 ##se eliminan lo campos ID y Examén Oral, dado que el ID no representa una variable de estudio y Examén Oral todas las observaciones tenían un único valor.
+
 ##Se transforma a dummy las variables categóricas (Género y Sarro)
+
 """)
     st.subheader("Conversión de variables categóricas a dummies")
     cat_features = ["gender", "tartar"]
