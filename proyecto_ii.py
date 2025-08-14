@@ -71,6 +71,25 @@ try:
         axs[i].set_title(f'{variable} vs. smoking')
     st.pyplot(fig)
 
+    st.text("""
+1. Triglicéridos vs. Tabaquismo:
+
+La comparación muestra que los individuos fumadores presentan niveles ligeramente más elevados de triglicéridos en comparación con los no fumadores. 
+La mediana de los triglicéridos es más alta en el grupo de fumadores, y se observa una mayor dispersión de los datos, con varios valores atípicos elevados. 
+Esto sugiere una posible asociación entre el tabaquismo y un aumento en los niveles de triglicéridos, lo cual podría implicar un mayor riesgo cardiovascular.
+2. Creatinina en Suero vs. Tabaquismo:
+
+La variable creatinina en suero, se identifica también una leve elevación en los valores medianos para los fumadores, acompañada de una mayor cantidad de valores 
+atípicos en ambos grupos. Sin embargo, el rango de variación de los niveles de creatinina es mayor en el grupo de fumadores. Esta observación puede indicar una 
+posible relación entre el consumo de tabaco y una función renal alterada, aunque se recomienda complementar el análisis con pruebas estadísticas para confirmar 
+esta hipótesis.
+3. Presión Arterial Sistólica vs. Tabaquismo:
+
+Al comparar la presión arterial sistólica entre fumadores y no fumadores, no se observan diferencias significativas en la mediana ni en la dispersión de los datos.
+Ambos grupos presentan distribuciones similares y un número considerable de valores extremos elevados. Esto sugiere que, en esta muestra, el tabaquismo no muestra 
+una influencia clara sobre la presión sistólica.
+""")
+
     # Gráficos de conteo
     fig, axes = plt.subplots(1, 2, figsize=(12, 5))
     sns.countplot(x='dental caries', hue='smoking', data=df, ax=axes[0])
@@ -82,6 +101,15 @@ try:
     axes[1].set_xlabel('Sarro')
     axes[1].set_ylabel('Conteo')
     st.pyplot(fig)
+        st.text("""
+1. Caries Dentales y Tabaquismo:
+Aunque el número total de no fumadores es mayor en la muestra, se observa que la proporción de fumadores con caries es más alta en relación con su propio grupo. 
+Esto sugiere que el tabaquismo podría estar asociado con una mayor incidencia de caries dentales.
+2. Sarro Dental y Tabaquismo
+Se observa que los fumadores tienden a presentar mayor frecuencia relativa de sarro dental en comparación con los no fumadores. 
+La diferencia es más marcada en el grupo con sarro, lo que podría indicar una relación entre el tabaquismo y la acumulación de placa o falta de higiene bucal
+adecuada.
+""")
 
     st.subheader("Conversión de variables categóricas a dummies")
     cat_features = ["gender", "tartar"]
