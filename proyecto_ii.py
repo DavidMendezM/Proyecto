@@ -22,8 +22,8 @@ try:
     st.title("PCA y Selección de Variables - Data Smoking")
     st.subheader("Elaborado por: Daniela Forero Cardenas , David Mendez Medellin y María Alejandra Vanegas")
     st.subheader("Composición Data Set:")
-st.write("- **Total registros:** 55,692")
-st.write("- **Total variables:** 27")
+st.write("**Total registros:** 55,692")
+st.write("**Total variables:** 27")
 datos = {
     "Variable": [
         "ID", "género", "edad", "altura (cm)", "peso (kg)", "cintura (cm)", "vista (izquierda)", "vista (derecha)",
