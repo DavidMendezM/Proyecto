@@ -154,7 +154,7 @@ adecuada.
     st.write('Prueba:', X_test.shape, y_test.shape)
     st.markdown("""
 
-## Se realiza validación cruzada para calcular el K óptimo para la Prueba F de Anova. 
+Se realiza validación cruzada para calcular el K óptimo para la Prueba F de Anova. 
 **Best Config: {'anova__k': 18}**
 """)
 
