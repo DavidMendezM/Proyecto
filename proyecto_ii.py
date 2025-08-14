@@ -70,7 +70,6 @@ try:
         sns.boxplot(x='smoking', y=variable, data=df, ax=axs[i])
         axs[i].set_title(f'{variable} vs. smoking')
     st.pyplot(fig)
-
     st.text("""
 1. Triglicéridos vs. Tabaquismo:
 
@@ -101,11 +100,14 @@ una influencia clara sobre la presión sistólica.
     axes[1].set_xlabel('Sarro')
     axes[1].set_ylabel('Conteo')
     st.pyplot(fig)
-        st.text("""
-1. Caries Dentales y Tabaquismo:
+    st.text("""
+    1. Caries Dentales y Tabaquismo:
+    
 Aunque el número total de no fumadores es mayor en la muestra, se observa que la proporción de fumadores con caries es más alta en relación con su propio grupo. 
 Esto sugiere que el tabaquismo podría estar asociado con una mayor incidencia de caries dentales.
-2. Sarro Dental y Tabaquismo
+
+2. Sarro Dental y Tabaquismo:
+
 Se observa que los fumadores tienden a presentar mayor frecuencia relativa de sarro dental en comparación con los no fumadores. 
 La diferencia es más marcada en el grupo con sarro, lo que podría indicar una relación entre el tabaquismo y la acumulación de placa o falta de higiene bucal
 adecuada.
