@@ -186,7 +186,7 @@ Se realiza validación cruzada para calcular el K óptimo para la Prueba F de An
     st.bar_chart(scores_df.set_index('feature'))
 
     st.subheader("Selección de variables por información mutua")
-    X_train_fs, X_test_fs, fs_mut = select_features(X_train, y_train, X_test, mutual_info_classif, 18)
+    X_train_fs, X_test_fs, fs_mut = select_features(X_train, y_train, X_test, mutual_info_classif, 'all')
     selected_mask_mut = fs_mut.get_support()
     selected_features_mut = X_train.columns[selected_mask_mut]
     selected_scores_mut = fs_mut.scores_[selected_mask_mut]
