@@ -200,7 +200,7 @@ adecuada.
     results_list = []
     for k in num_features:
         model = LogisticRegression(solver='liblinear')
-        fs = SelectKBest(score_func=f_classif, k=k)
+        fs = SelectKBest(score_func=f_classif, k=18)
         pipeline = Pipeline(steps=[('anova',fs), ('lr', model)])
         scores = cross_val_score(pipeline, X, y, scoring='accuracy', cv=cv, n_jobs=-1)
         results_list.append(scores)
