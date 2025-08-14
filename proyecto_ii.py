@@ -22,29 +22,28 @@ try:
     st.title("PCA y Selección de Variables - Data Smoking")
     st.subheader("Elaborado por: Daniela Forero Cardenas , David Mendez Medellin y María Alejandra Vanegas")
     st.subheader("Composición Data Set:")
-st.write("**Total registros:** 55,692")
-st.write("**Total variables:** 27")
-datos = {
-    "Variable": [
-        "ID", "género", "edad", "altura (cm)", "peso (kg)", "cintura (cm)", "vista (izquierda)", "vista (derecha)",
-        "audición (izquierda)", "audición (derecha)", "presión arterial sistólica", "Relajación", "azúcar en sangre en ayunas",
-        "Colesterol: total", "triglicéridos", "HDL", "LDL", "hemoglobina", "Proteína en la orina", "creatinina sérica",
-        "AST", "ALT", "Gtp", "oral", "caries dental", "sarro", "Fumador"
-    ],
-    "Descripción": [
-        "Índice", "Género", "Diferencia de 5 años", "Altura en centímetros", "Peso en kilogramos", "Longitud de la circunferencia de la cintura",
-        "Visión del ojo izquierdo", "Visión del ojo derecho", "Audición del oído izquierdo", "Audición del oído derecho",
-        "Presión arterial sistólica", "Presión arterial en relajación", "Glucosa en sangre en ayunas", "Colesterol total", "Triglicéridos",
-        "Tipo de colesterol HDL", "Tipo de colesterol LDL", "Hemoglobina", "Proteína en orina", "Creatinina en suero",
-        "Transaminasa glutámico-oxalacética (AST)", "Transaminasa glutámico-oxalacética (ALT)", "γ-GTP (guanosín trifosfato)",
-        "Estado del examen oral", "Presencia de caries", "Estado del sarro", "Estado de fumador"
-    ]
-}
+    st.write("**Total registros:** 55,692")
+    st.write("**Total variables:** 27")
+    datos = {
+        "Variable": [
+            "ID", "género", "edad", "altura (cm)", "peso (kg)", "cintura (cm)", "vista (izquierda)", "vista (derecha)",
+            "audición (izquierda)", "audición (derecha)", "presión arterial sistólica", "Relajación", "azúcar en sangre en ayunas",
+            "Colesterol: total", "triglicéridos", "HDL", "LDL", "hemoglobina", "Proteína en la orina", "creatinina sérica",
+            "AST", "ALT", "Gtp", "oral", "caries dental", "sarro", "Fumador"
+        ],
+        "Descripción": [
+            "Índice", "Género", "Diferencia de 5 años", "Altura en centímetros", "Peso en kilogramos", "Longitud de la circunferencia de la cintura",
+            "Visión del ojo izquierdo", "Visión del ojo derecho", "Audición del oído izquierdo", "Audición del oído derecho",
+            "Presión arterial sistólica", "Presión arterial en relajación", "Glucosa en sangre en ayunas", "Colesterol total", "Triglicéridos",
+            "Tipo de colesterol HDL", "Tipo de colesterol LDL", "Hemoglobina", "Proteína en orina", "Creatinina en suero",
+            "Transaminasa glutámico-oxalacética (AST)", "Transaminasa glutámico-oxalacética (ALT)", "γ-GTP (guanosín trifosfato)",
+            "Estado del examen oral", "Presencia de caries", "Estado del sarro", "Estado de fumador"
+        ]
+    }
 
-datos = pd.DataFrame(datos)
-st.table(datos) 
+    datos = pd.DataFrame(datos)
+    st.table(datos) 
 
-    
     @st.cache_data
     def load_data():
         url = "https://raw.githubusercontent.com/malejavanegas0/Proyecto/b9aa27643b2cd3ddb5963d5ff49dc83df09b53da/smoking.csv"
@@ -180,7 +179,6 @@ st.table(datos)
     X_selected_df = pd.DataFrame(X_selected, columns=selected_feature_names)
     st.write("Data set con las mejores características", X_selected_df.shape)
     st.write(X_selected_df.head())
-
 
     st.markdown("PCA**")
     def get_models():
