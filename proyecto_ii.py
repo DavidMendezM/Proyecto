@@ -161,18 +161,29 @@ Se realiza validación cruzada para calcular el K óptimo para la Prueba F de An
     cv = RepeatedStratifiedKFold(n_splits=3, n_repeats=1, random_state=1)
 
     st.subheader("Prueba F de ANOVA")
+
     def select_features(X_train, y_train, X_test, score_func, k):
-        fs = SelectKBest(score_func=score_func, k=18)
+        fs = SelectKBest(score_func=score_func, k=k)
         fs.fit(X_train, y_train)
         X_train_fs = fs.transform(X_train)
         X_test_fs = fs.transform(X_test)
         return X_train_fs, X_test_fs, fs
-        X_train_fs, X_test_fs, fs = select_features(X_train, y_train, X_test, f_classif, 18)  # Usa 18 directamente
-        selected_mask = fs.get_support()  # Boolean array
-        selected_features = X_train.columns[selected_mask]
-        selected_scores = fs.scores_[selected_mask]
-        scores_df = pd.DataFrame({'feature': selected_features, 'score': selected_scores}).sort_values('score', ascending=False)
-        st.bar_chart(scores_df.set_index('feature'))
+
+    # Selección de variables con ANOVA, k=18
+    X_train_fs, X_test_fs, fs = select_features(X_train, y_train, X_test, f_classif, 18)
+
+    # Máscara de las variables seleccionadas
+    selected_mask = fs.get_support()  # Boolean array
+
+    # Nombres de las variables seleccionadas
+    selected_features = X_train.columns[selected_mask]
+
+    # Scores solo de las seleccionadas
+    selected_scores = fs.scores_[selected_mask]
+
+    # DataFrame para graficar
+    scores_df = pd.DataFrame({'feature': selected_features, 'score': selected_scores}).sort_values('score', ascending=False)
+    st.bar_chart(scores_df.set_index('feature'))
 
     st.subheader("Selección de variables por información mutua")
     X_train_fs, X_test_fs, fs_mut = select_features(X_train, y_train, X_test, mutual_info_classif, 'all')
