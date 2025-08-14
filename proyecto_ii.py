@@ -187,7 +187,7 @@ Se realiza validación cruzada para calcular el K óptimo para la Prueba F de An
     st.markdown("""
 
 Se realiza validación cruzada para calcular el K óptimo para la Selección de variables por información mutua. 
-**Best Config: {'anova__k': 18}**
+**Best Config: {'mutua__k': 26}**
 """)
     
     st.subheader("Selección de variables por información mutua")
