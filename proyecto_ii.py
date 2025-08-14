@@ -253,7 +253,7 @@ Se realiza validación cruzada para calcular el K óptimo para la Selección de 
     ** ** , ya que presenta un valor mayor de exactitud. 
 """)
 
-    st.markdown("PCA**")
+    
     def get_models():
         models = dict()
         for i in range(1, 16):  # Hasta 15 componentes, puedes subirlo si tu máquina lo aguanta
