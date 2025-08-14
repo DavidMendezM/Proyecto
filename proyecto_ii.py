@@ -227,6 +227,7 @@ Se realiza validación cruzada para calcular el K óptimo para la Selección de 
     st.subheader("Ajuste del número de variables seleccionadas")
     num_features = [i+1 for i in range(X.shape[1])]
     results_list = []
+    
     for k in num_features:
     model = LogisticRegression(solver='liblinear')
     fs = SelectKBest(score_func=f_classif, k=k)  # aquí debe ser k, no 18
