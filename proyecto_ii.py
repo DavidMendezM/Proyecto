@@ -114,7 +114,10 @@ Se observa que los fumadores tienden a presentar mayor frecuencia relativa de sa
 La diferencia es más marcada en el grupo con sarro, lo que podría indicar una relación entre el tabaquismo y la acumulación de placa o falta de higiene bucal
 adecuada.
 """)
-
+    st.markdown("""
+##se eliminan lo campos ID y Examén Oral, dado que el ID no representa una variable de estudio y Examén Oral todas las observaciones tenían un único valor.
+##Se transforma a dummy las variables categóricas (Género y Sarro)
+""")
     st.subheader("Conversión de variables categóricas a dummies")
     cat_features = ["gender", "tartar"]
     df = pd.get_dummies(df, columns=cat_features)
