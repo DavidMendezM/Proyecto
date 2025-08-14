@@ -191,7 +191,7 @@ Se realiza validación cruzada para calcular el K óptimo para la Selección de 
 """)
     
     st.subheader("Selección de variables por información mutua")
-    X_train_fs, X_test_fs, fs_mut = select_features(X_train, y_train, X_test, mutual_info_classif, 'all')
+    X_train_fs, X_test_fs, fs_mut = select_features(X_train, y_train, X_test, mutual_info_classif, 18)
     selected_mask_mut = fs_mut.get_support()
     selected_features_mut = X_train.columns[selected_mask_mut]
     selected_scores_mut = fs_mut.scores_[selected_mask_mut]
