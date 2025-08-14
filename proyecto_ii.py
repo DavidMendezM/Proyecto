@@ -76,12 +76,14 @@ try:
 La comparación muestra que los individuos fumadores presentan niveles ligeramente más elevados de triglicéridos en comparación con los no fumadores. 
 La mediana de los triglicéridos es más alta en el grupo de fumadores, y se observa una mayor dispersión de los datos, con varios valores atípicos elevados. 
 Esto sugiere una posible asociación entre el tabaquismo y un aumento en los niveles de triglicéridos, lo cual podría implicar un mayor riesgo cardiovascular.
+
 2. Creatinina en Suero vs. Tabaquismo:
 
 La variable creatinina en suero, se identifica también una leve elevación en los valores medianos para los fumadores, acompañada de una mayor cantidad de valores 
 atípicos en ambos grupos. Sin embargo, el rango de variación de los niveles de creatinina es mayor en el grupo de fumadores. Esta observación puede indicar una 
 posible relación entre el consumo de tabaco y una función renal alterada, aunque se recomienda complementar el análisis con pruebas estadísticas para confirmar 
 esta hipótesis.
+
 3. Presión Arterial Sistólica vs. Tabaquismo:
 
 Al comparar la presión arterial sistólica entre fumadores y no fumadores, no se observan diferencias significativas en la mediana ni en la dispersión de los datos.
