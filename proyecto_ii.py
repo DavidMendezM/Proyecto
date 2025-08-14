@@ -194,7 +194,6 @@ Se realiza validación cruzada para calcular el K óptimo para la Prueba F de An
     'feature': selected_features_mut,
     'score': selected_scores_mut
     }).sort_values('score', ascending=False)
-    st.subheader("Selección de variables por información mutua")
     st.bar_chart(scores_df_mut.set_index('feature'))
     
     st.subheader("Modelado con características seleccionadas")
