@@ -223,21 +223,22 @@ Se realiza validación cruzada para calcular el K óptimo para la Selección de 
     yhat = model.predict(X_test_fs)
     accuracy = accuracy_score(y_test, yhat)
     st.write('Precisión (Información mutua): %.2f' % (accuracy*100))
-
+    
     st.subheader("Ajuste del número de variables seleccionadas")
     num_features = [i+1 for i in range(X.shape[1])]
     results_list = []
     for k in num_features:
-        model = LogisticRegression(solver='liblinear')
-        fs = SelectKBest(score_func=f_classif, k=18)
-        pipeline = Pipeline(steps=[('anova',fs), ('lr', model)])
-        scores = cross_val_score(pipeline, X, y, scoring='accuracy', cv=cv, n_jobs=-1)
-        results_list.append(scores)
-        st.write(f'> {k} variables: Media={mean(scores):.3f}, Std={std(scores):.3f}')
+    model = LogisticRegression(solver='liblinear')
+    fs = SelectKBest(score_func=f_classif, k=k)  # aquí debe ser k, no 18
+    pipeline = Pipeline(steps=[('anova', fs), ('lr', model)])
+    scores = cross_val_score(pipeline, X, y, scoring='accuracy', cv=cv, n_jobs=-1)
+    results_list.append(scores)
+    st.write(f'> {k} variables: Media={mean(scores):.3f}, Std={std(scores):.3f}')
     fig, ax = plt.subplots()
     ax.boxplot(results_list, showmeans=True)
     ax.set_xticklabels(num_features, rotation=45)
     st.pyplot(fig)
+
 
     selector = SelectKBest(score_func=f_classif, k=18)
     X_selected = selector.fit_transform(X, y)
