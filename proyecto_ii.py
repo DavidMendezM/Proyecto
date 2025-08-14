@@ -185,6 +185,12 @@ Se realiza validación cruzada para calcular el K óptimo para la Prueba F de An
     scores_df = pd.DataFrame({'feature': selected_features, 'score': selected_scores}).sort_values('score', ascending=False)
     st.bar_chart(scores_df.set_index('feature'))
 
+        st.markdown("""
+
+Se realiza validación cruzada para calcular el K óptimo para la Selección de variables por información mutua. 
+**Best Config: {'anova__k': 18}**
+""")
+    
     st.subheader("Selección de variables por información mutua")
     X_train_fs, X_test_fs, fs_mut = select_features(X_train, y_train, X_test, mutual_info_classif, 'all')
     selected_mask_mut = fs_mut.get_support()
@@ -204,7 +210,7 @@ Se realiza validación cruzada para calcular el K óptimo para la Prueba F de An
     st.write('Precisión (todas las variables): %.2f' % (accuracy*100))
 
     st.subheader("Modelo usando características ANOVA")
-    X_train_fs, X_test_fs, fs = select_features(X_train, y_train, X_test, f_classif, 6)
+    X_train_fs, X_test_fs, fs = select_features(X_train, y_train, X_test, f_classif, 18)
     model = LogisticRegression(solver='liblinear')
     model.fit(X_train_fs, y_train)
     yhat = model.predict(X_test_fs)
