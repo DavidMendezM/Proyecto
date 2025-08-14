@@ -184,8 +184,7 @@ Se realiza validación cruzada para calcular el K óptimo para la Prueba F de An
     # DataFrame para graficar
     scores_df = pd.DataFrame({'feature': selected_features, 'score': selected_scores}).sort_values('score', ascending=False)
     st.bar_chart(scores_df.set_index('feature'))
-
-        st.markdown("""
+    st.markdown("""
 
 Se realiza validación cruzada para calcular el K óptimo para la Selección de variables por información mutua. 
 **Best Config: {'anova__k': 18}**
