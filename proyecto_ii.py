@@ -152,12 +152,17 @@ adecuada.
     X_train, X_test, y_train, y_test = train_test_split(X_resampled, y_resampled, test_size=0.2, random_state=42)
     st.write('Entrenamiento:', X_train.shape, y_train.shape)
     st.write('Prueba:', X_test.shape, y_test.shape)
+    st.markdown("""
+
+## Se realiza validación cruzada para calcular el K óptimo para la Prueba F de Anova. 
+**Best Config: {'anova__k': 18}**
+""")
 
     cv = RepeatedStratifiedKFold(n_splits=3, n_repeats=1, random_state=1)
 
     st.subheader("Prueba F de ANOVA")
     def select_features(X_train, y_train, X_test, score_func, k):
-        fs = SelectKBest(score_func=score_func, k=k)
+        fs = SelectKBest(score_func=score_func, k=18)
         fs.fit(X_train, y_train)
         X_train_fs = fs.transform(X_train)
         X_test_fs = fs.transform(X_test)
