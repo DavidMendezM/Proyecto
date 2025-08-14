@@ -186,10 +186,17 @@ Se realiza validación cruzada para calcular el K óptimo para la Prueba F de An
     st.bar_chart(scores_df.set_index('feature'))
 
     st.subheader("Selección de variables por información mutua")
-    X_train_fs, X_test_fs, fs_mut = select_features(X_train, y_train, X_test, mutual_info_classif, 'all')
-    scores_mut = fs_mut.scores_
-    st.bar_chart(scores_mut)
-
+    X_train_fs, X_test_fs, fs_mut = select_features(X_train, y_train, X_test, mutual_info_classif, 18)
+    selected_mask_mut = fs_mut.get_support()
+    selected_features_mut = X_train.columns[selected_mask_mut]
+    selected_scores_mut = fs_mut.scores_[selected_mask_mut]
+    scores_df_mut = pd.DataFrame({
+    'feature': selected_features_mut,
+    'score': selected_scores_mut
+    }).sort_values('score', ascending=False)
+    st.subheader("Selección de variables por información mutua")
+    st.bar_chart(scores_df_mut.set_index('feature'))
+    
     st.subheader("Modelado con características seleccionadas")
     model = LogisticRegression(solver='liblinear', max_iter=1000)
     model.fit(X_train, y_train)
