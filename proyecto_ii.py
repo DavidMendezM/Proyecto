@@ -229,11 +229,11 @@ Se realiza validación cruzada para calcular el K óptimo para la Selección de 
     results_list = []
     
     for k in num_features:
-    model = LogisticRegression(solver='liblinear')
-    fs = SelectKBest(score_func=f_classif, k=k)  # aquí debe ser k, no 18
-    pipeline = Pipeline(steps=[('anova', fs), ('lr', model)])
-    scores = cross_val_score(pipeline, X, y, scoring='accuracy', cv=cv, n_jobs=-1)
-    results_list.append(scores)
+        model = LogisticRegression(solver='liblinear')
+        fs = SelectKBest(score_func=f_classif, k=k)  # aquí debe ser k, no 18
+        pipeline = Pipeline(steps=[('anova', fs), ('lr', model)])
+        scores = cross_val_score(pipeline, X, y, scoring='accuracy', cv=cv, n_jobs=-1)
+        results_list.append(scores)
     st.write(f'> {k} variables: Media={mean(scores):.3f}, Std={std(scores):.3f}')
     fig, ax = plt.subplots()
     ax.boxplot(results_list, showmeans=True)
