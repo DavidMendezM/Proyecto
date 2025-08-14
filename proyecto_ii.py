@@ -217,7 +217,7 @@ Se realiza validación cruzada para calcular el K óptimo para la Selección de 
     st.write('accuracy(ANOVA): %.2f' % (accuracy*100))
 
     st.subheader("Modelo usando características de información mutua")
-    X_train_fs, X_test_fs, fs = select_features(X_train, y_train, X_test, mutual_info_classif, 4)
+    X_train_fs, X_test_fs, fs = select_features(X_train, y_train, X_test, mutual_info_classif, 'all')
     model = LogisticRegression(solver='liblinear')
     model.fit(X_train_fs, y_train)
     yhat = model.predict(X_test_fs)
@@ -230,7 +230,7 @@ Se realiza validación cruzada para calcular el K óptimo para la Selección de 
     
     for k in num_features:
         model = LogisticRegression(solver='liblinear')
-        fs = SelectKBest(score_func=f_classif, k=k)  # aquí debe ser k, no 18
+        fs = SelectKBest(score_func=f_classif, k=18)  # aquí debe ser k, no 18
         pipeline = Pipeline(steps=[('anova', fs), ('lr', model)])
         scores = cross_val_score(pipeline, X, y, scoring='accuracy', cv=cv, n_jobs=-1)
         results_list.append(scores)
