@@ -18,8 +18,15 @@ from sklearn.datasets import make_classification
 import traceback
 
 try:
-    st.set_page_config(page_title="Análisis de Fumadores", layout="wide")
+    st.set_page_config(page_title="Análisis de Fumadores 🚭", layout="wide")
     st.title("PCA y Selección de Variables - Data Smoking")
+    st.subheader("Elaborado por: Daniela Forero Cardenas , David Mendez Medellin y María Alejandra Vanegas")
+    st.subheader("Composición Data Set:")
+    -Total registros: 55.692 
+    -Total Variables: 27
+    -
+
+
     
     @st.cache_data
     def load_data():
@@ -74,7 +81,7 @@ try:
 
     scaler = StandardScaler()
 
-    st.subheader("2. Balanceo de la data")
+    st.subheader("Balanceo de la data")
     smoking_distribution = df['smoking'].value_counts()
     st.write("Distribución de la variable 'smoking':", smoking_distribution)
 
@@ -87,7 +94,7 @@ try:
     X_resampled, y_resampled = smote.fit_resample(X, y)
     st.write("Distribución de la variable 'smoking' después de SMOTE:", y_resampled.value_counts())
 
-    st.subheader("3. Preparación de los datos")
+    st.subheader("Preparación de los datos")
     X_train, X_test, y_train, y_test = train_test_split(X_resampled, y_resampled, test_size=0.2, random_state=42)
     st.write('Entrenamiento:', X_train.shape, y_train.shape)
     st.write('Prueba:', X_test.shape, y_test.shape)
@@ -157,8 +164,8 @@ try:
     st.write("Data set con las mejores características", X_selected_df.shape)
     st.write(X_selected_df.head())
 
-    # --- Dataset sintético para comparación PCA ---
-    st.markdown("**Dataset sintético para comparación PCA**")
+
+    st.markdown("PCA**")
     def get_models():
         models = dict()
         for i in range(1, 16):  # Hasta 15 componentes, puedes subirlo si tu máquina lo aguanta
