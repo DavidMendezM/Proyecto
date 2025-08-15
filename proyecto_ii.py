@@ -301,7 +301,8 @@ Se realiza validación cruzada para calcular el K óptimo para la Selección de 
     st.markdown("""
     En el método de análisis de componente principales (PCA), se observa que con 15 componentes se logra explicar **el 72% de exactitud**. 
 """)
-   
+
+
 except Exception as e:
     st.error("Ocurrió un error al ejecutar la aplicación:")
     st.error(str(e))
