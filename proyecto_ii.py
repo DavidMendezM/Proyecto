@@ -308,17 +308,14 @@ Se realiza validación cruzada para calcular el K óptimo para la Selección de 
     ax.set_ylim(70, 80)
     ax.set_ylabel('Accuracy (%)')
     ax.set_title('Comparación de accuracy entre métodos')
-
-# Etiquetas encima de cada barra
-for bar in bars:
-    height = bar.get_height()
-    ax.annotate(f'{height:.2f}%',
-                xy=(bar.get_x() + bar.get_width() / 2, height),
-                xytext=(0, 3),
-                textcoords="offset points",
-                ha='center', va='bottom')
-
-st.pyplot(fig)
+    for bar in bars:
+        height = bar.get_height()
+        ax.annotate(f'{height:.2f}%',
+                    xy=(bar.get_x() + bar.get_width() / 2, height),
+                    xytext=(0, 3),
+                    textcoords="offset points",
+                    ha='center', va='bottom')
+    st.pyplot(fig)
 except Exception as e:
     st.error("Ocurrió un error al ejecutar la aplicación:")
     st.error(str(e))
