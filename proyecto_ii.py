@@ -116,9 +116,9 @@ adecuada.
 """)
     st.markdown("""
 
-##se eliminan lo campos ID y Examén Oral, dado que el ID no representa una variable de estudio y Examén Oral todas las observaciones tenían un único valor.
+**se eliminan lo campos ID y Examén Oral, dado que el ID no representa una variable de estudio y Examén Oral todas las observaciones tenían un único valor.**
 
-##Se transforma a dummy las variables categóricas (Género y Sarro)
+**Se transforma a dummy las variables categóricas (Género y Sarro)**
 
 """)
     st.subheader("Conversión de variables categóricas a dummies")
