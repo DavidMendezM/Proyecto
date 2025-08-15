@@ -247,7 +247,7 @@ Se realiza validación cruzada para calcular el K óptimo para la Selección de 
     st.write(X_selected_df.head())
     st.markdown("""
     El mejor modelo para la selección de variables es: 
-    ** ** , ya que presenta un valor mayor de exactitud. 
+    ANOVA, ya que presenta un valor mayor de exactitud. 
 """)
 
     
@@ -301,21 +301,7 @@ Se realiza validación cruzada para calcular el K óptimo para la Selección de 
     st.markdown("""
     En el método de análisis de componente principales (PCA), se observa que con 15 componentes se logra explicar **el 72% de exactitud**. 
 """)
-    metodos = ['Todas las variables', 'ANOVA', 'Información mutua', 'PCA (15 comp.)']
-    accuracies = [acc_todas, acc_anova, acc_mutua, acc_pca]
-    fig, ax = plt.subplots()
-    bars = ax.bar(metodos, accuracies, color=['#4CAF50', '#2196F3', '#FFC107', '#E91E63'])
-    ax.set_ylim(70, 80)
-    ax.set_ylabel('Accuracy (%)')
-    ax.set_title('Comparación de accuracy entre métodos')
-    for bar in bars:
-        height = bar.get_height()
-        ax.annotate(f'{height:.2f}%',
-                    xy=(bar.get_x() + bar.get_width() / 2, height),
-                    xytext=(0, 3),
-                    textcoords="offset points",
-                    ha='center', va='bottom')
-    st.pyplot(fig)
+   
 except Exception as e:
     st.error("Ocurrió un error al ejecutar la aplicación:")
     st.error(str(e))
