@@ -74,15 +74,17 @@ try:
     st.text(info_str)
     st.write("Descripción estadística:", df.describe())
     st.write("Valores nulos por columna:", df.isnull().sum())
-
     
     #Eliminamos columnas no necesarias
     df = df.drop(["ID", "oral"], axis=1)
+    
     #Seleccionar variables numéricas
     numerical_variables = df.select_dtypes(include=np.number).columns.tolist()
     if 'smoking' in numerical_variables:
         numerical_variables.remove('smoking')
+
     st.title("Boxplots por variable numérica vs Smoking")
+
     # Mostrar cada boxplot individualmente
     for variable in numerical_variables:
         fig, ax = plt.subplots(figsize=(6, 4))
@@ -92,24 +94,20 @@ try:
         ax.set_ylabel(variable)
         st.pyplot(fig)
 
-1. Triglicéridos vs. Tabaquismo:
-
-La comparación muestra que los individuos fumadores presentan niveles ligeramente más elevados de triglicéridos en comparación con los no fumadores. 
-La mediana de los triglicéridos es más alta en el grupo de fumadores, y se observa una mayor dispersión de los datos, con varios valores atípicos elevados. 
+    st.markdown("""
+### 1. Triglicéridos vs. Tabaquismo
+Los individuos fumadores presentan niveles ligeramente más elevados de triglicéridos en comparación con los no fumadores.  
+La mediana de los triglicéridos es más alta en el grupo de fumadores, con mayor dispersión de los datos y varios valores atípicos.  
 Esto sugiere una posible asociación entre el tabaquismo y un aumento en los niveles de triglicéridos, lo cual podría implicar un mayor riesgo cardiovascular.
 
-2. Creatinina en Suero vs. Tabaquismo:
+### 2. Creatinina en Suero vs. Tabaquismo
+Se identifica una leve elevación en los valores medianos para los fumadores, con mayor variación y valores atípicos.  
+Esto puede indicar una relación entre el consumo de tabaco y la función renal alterada, aunque se recomienda validar con pruebas estadísticas.
 
-La variable creatinina en suero, se identifica también una leve elevación en los valores medianos para los fumadores, acompañada de una mayor cantidad de valores 
-atípicos en ambos grupos. Sin embargo, el rango de variación de los niveles de creatinina es mayor en el grupo de fumadores. Esta observación puede indicar una 
-posible relación entre el consumo de tabaco y una función renal alterada, aunque se recomienda complementar el análisis con pruebas estadísticas para confirmar 
-esta hipótesis.
-
-3. Presión Arterial Sistólica vs. Tabaquismo:
-
-Al comparar la presión arterial sistólica entre fumadores y no fumadores, no se observan diferencias significativas en la mediana ni en la dispersión de los datos.
-Ambos grupos presentan distribuciones similares y un número considerable de valores extremos elevados. Esto sugiere que, en esta muestra, el tabaquismo no muestra 
-una influencia clara sobre la presión sistólica.
+### 3. Presión Arterial Sistólica vs. Tabaquismo
+No se observan diferencias significativas entre fumadores y no fumadores.  
+Las distribuciones son similares y ambos grupos tienen valores extremos elevados.  
+Esto sugiere que, en esta muestra, el tabaquismo no muestra una influencia clara sobre la presión sistólica.
 """)
 
     # Gráficos de conteo
@@ -123,25 +121,26 @@ una influencia clara sobre la presión sistólica.
     axes[1].set_xlabel('Sarro')
     axes[1].set_ylabel('Conteo')
     st.pyplot(fig)
-    st.text("""
-    1. Caries Dentales y Tabaquismo:
-    
-Aunque el número total de no fumadores es mayor en la muestra, se observa que la proporción de fumadores con caries es más alta en relación con su propio grupo. 
+
+    st.markdown("""
+### 1. Caries Dentales y Tabaquismo
+Aunque el número total de no fumadores es mayor en la muestra, la proporción de fumadores con caries es más alta dentro de su propio grupo.  
 Esto sugiere que el tabaquismo podría estar asociado con una mayor incidencia de caries dentales.
 
-2. Sarro Dental y Tabaquismo:
-
-Se observa que los fumadores tienden a presentar mayor frecuencia relativa de sarro dental en comparación con los no fumadores. 
-La diferencia es más marcada en el grupo con sarro, lo que podría indicar una relación entre el tabaquismo y la acumulación de placa o falta de higiene bucal
-adecuada.
+### 2. Sarro Dental y Tabaquismo
+Los fumadores tienden a presentar mayor frecuencia relativa de sarro en comparación con los no fumadores.  
+La diferencia es más marcada en el grupo con sarro, lo que podría indicar una relación entre el tabaquismo y la acumulación de placa.
 """)
+
     st.markdown("""
+**Se eliminan los campos `ID` y `oral`**, dado que:
+- El `ID` no representa una variable de estudio.
+- En `oral` todas las observaciones tenían un único valor.
 
-**se eliminan lo campos ID y Examén Oral, dado que el ID no representa una variable de estudio y Examén Oral todas las observaciones tenían un único valor.**
-
-**Se transforma a dummy las variables categóricas (Género y Sarro)**
-
+**Se transforman a dummies las variables categóricas `gender` y `tartar`.**
 """)
+
+    # Conversión de variables categóricas a dummies
     st.subheader("Conversión de variables categóricas a dummies")
     cat_features = ["gender", "tartar"]
     df = pd.get_dummies(df, columns=cat_features)
@@ -322,6 +321,6 @@ Se realiza validación cruzada para calcular el K óptimo para la Selección de 
     st.markdown("""
     En el método de análisis de componente principales (PCA), se observa que con 15 componentes se logra explicar **el 72% de exactitud**. 
     """)
-    except Exception as e:
+except Exception as e:
     st.error("Ocurrió un error al ejecutar la app.")
     st.text(traceback.format_exc())
