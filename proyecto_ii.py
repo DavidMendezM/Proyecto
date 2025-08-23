@@ -24,39 +24,40 @@ try:
     st.subheader("Composición Data Set:")
     st.write("**Total registros:** 55,692")
     st.write("**Total variables:** 27")
+
     datos = {
-    "Variable": [
-        "ID", "gender", "age", "height(cm)", "weight(kg)", "waist(cm)",
-        "eyesight(left)", "eyesight(right)", "hearing(left)", "hearing(right)",
-        "systolic", "relaxation", "fasting blood sugar", "Cholestero", "triglyceride",
-        "HDL", "LDL", "hemoglobin", "Urine protein", "serum creatinine",
-        "AST", "ALT", "Gtp", "oral dental", "caries", "tartar", "smoking"
-    ],
-    "Nombre": [
-        "ID", "género", "edad", "altura (cm)", "peso (kg)", "cintura (cm)",
-        "vista (izquierda)", "vista (derecha)", "audición (izquierda)", "audición (derecha)",
-        "presión arterial sistólica", "relajación", "azúcar en sangre en ayunas",
-        "colesterol total", "triglicéridos", "HDL", "LDL", "hemoglobina",
-        "proteína en la orina", "creatinina sérica", "AST", "ALT", "Gtp",
-        "oral", "caries dental", "sarro", "fumador"
-    ],
-    "Descripción": [
-        "Índice", "Género", "Diferencia de 5 años", "Altura en centímetros",
-        "Peso en kilogramos", "Longitud de la circunferencia de la cintura",
-        "Visión del ojo izquierdo", "Visión del ojo derecho",
-        "Audición del oído izquierdo", "Audición del oído derecho",
-        "Presión arterial sistólica", "Presión arterial en relajación",
-        "Glucosa en sangre en ayunas", "Colesterol total", "Triglicéridos",
-        "Tipo de colesterol HDL", "Tipo de colesterol LDL", "Hemoglobina",
-        "Proteína en orina", "Creatinina en suero",
-        "(AST - aspartato aminotransferasa)", "(ALT - alanina aminotransferasa)",
-        "γ-GTP (guanosín trifosfato)", "Estado del examen oral",
-        "Presencia de caries", "Estado del sarro", "Estado de fumador"
-    ]
-}
+        "Variable": [
+            "ID", "gender", "age", "height(cm)", "weight(kg)", "waist(cm)",
+            "eyesight(left)", "eyesight(right)", "hearing(left)", "hearing(right)",
+            "systolic", "relaxation", "fasting blood sugar", "Cholestero", "triglyceride",
+            "HDL", "LDL", "hemoglobin", "Urine protein", "serum creatinine",
+            "AST", "ALT", "Gtp", "oral dental", "caries", "tartar", "smoking"
+        ],
+        "Nombre": [
+            "ID", "género", "edad", "altura (cm)", "peso (kg)", "cintura (cm)",
+            "vista (izquierda)", "vista (derecha)", "audición (izquierda)", "audición (derecha)",
+            "presión arterial sistólica", "relajación", "azúcar en sangre en ayunas",
+            "colesterol total", "triglicéridos", "HDL", "LDL", "hemoglobina",
+            "proteína en la orina", "creatinina sérica", "AST", "ALT", "Gtp",
+            "oral", "caries dental", "sarro", "fumador"
+        ],
+        "Descripción": [
+            "Índice", "Género", "Diferencia de 5 años", "Altura en centímetros",
+            "Peso en kilogramos", "Longitud de la circunferencia de la cintura",
+            "Visión del ojo izquierdo", "Visión del ojo derecho",
+            "Audición del oído izquierdo", "Audición del oído derecho",
+            "Presión arterial sistólica", "Presión arterial en relajación",
+            "Glucosa en sangre en ayunas", "Colesterol total", "Triglicéridos",
+            "Tipo de colesterol HDL", "Tipo de colesterol LDL", "Hemoglobina",
+            "Proteína en orina", "Creatinina en suero",
+            "(AST - aspartato aminotransferasa)", "(ALT - alanina aminotransferasa)",
+            "γ-GTP (guanosín trifosfato)", "Estado del examen oral",
+            "Presencia de caries", "Estado del sarro", "Estado de fumador"
+        ]
+    }
 
     datos = pd.DataFrame(datos)
-    st.table(datos) 
+    st.table(datos)
 
     @st.cache_data
     def load_data():
@@ -73,6 +74,7 @@ try:
     st.text(info_str)
     st.write("Descripción estadística:", df.describe())
     st.write("Valores nulos por columna:", df.isnull().sum())
+
     
     #Eliminamos columnas no necesarias
     df = df.drop(["ID", "oral"], axis=1)
@@ -320,9 +322,6 @@ Se realiza validación cruzada para calcular el K óptimo para la Selección de 
     st.markdown("""
     En el método de análisis de componente principales (PCA), se observa que con 15 componentes se logra explicar **el 72% de exactitud**. 
 """)
-
-
 except Exception as e:
-    st.error("Ocurrió un error al ejecutar la aplicación:")
-    st.error(str(e))
+    st.error("Ocurrió un error al ejecutar la app.")
     st.text(traceback.format_exc())
