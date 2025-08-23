@@ -76,22 +76,19 @@ try:
     
     #Eliminamos columnas no necesarias
     df = df.drop(["ID", "oral"], axis=1)
-    
     #Seleccionar variables numéricas
-numerical_variables = df.select_dtypes(include=np.number).columns.tolist()
-if 'smoking' in numerical_variables:
-    numerical_variables.remove('smoking')
-
-st.title("Boxplots por variable numérica vs Smoking")
-
-# Mostrar cada boxplot individualmente
-for variable in numerical_variables:
-    fig, ax = plt.subplots(figsize=(6, 4))
-    sns.boxplot(x='smoking', y=variable, data=df, ax=ax)
-    ax.set_title(f'Distribución de {variable} por Smoking')
-    ax.set_xlabel("Smoking")
-    ax.set_ylabel(variable)
-    st.pyplot(fig)
+    numerical_variables = df.select_dtypes(include=np.number).columns.tolist()
+    if 'smoking' in numerical_variables:
+        numerical_variables.remove('smoking')
+    st.title("Boxplots por variable numérica vs Smoking")
+    # Mostrar cada boxplot individualmente
+    for variable in numerical_variables:
+        fig, ax = plt.subplots(figsize=(6, 4))
+        sns.boxplot(x='smoking', y=variable, data=df, ax=ax)
+        ax.set_title(f'Distribución de {variable} por Smoking')
+        ax.set_xlabel("Smoking")
+        ax.set_ylabel(variable)
+        st.pyplot(fig)
 
 1. Triglicéridos vs. Tabaquismo:
 
