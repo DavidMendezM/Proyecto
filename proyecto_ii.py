@@ -85,14 +85,18 @@ try:
 
     st.title("Boxplots por variable numérica vs Smoking")
 
-    # Mostrar cada boxplot individualmente
-    for variable in numerical_variables:
-        fig, ax = plt.subplots(figsize=(6, 4))
-        sns.boxplot(x='smoking', y=variable, data=df, ax=ax)
-        ax.set_title(f'Distribución de {variable} por Smoking')
-        ax.set_xlabel("Smoking")
-        ax.set_ylabel(variable)
-        st.pyplot(fig)
+    n_cols = 4 
+    
+    for i in range(0, len(numerical_variables), n_cols):
+        cols = st.columns(n_cols)
+        for j, variable in enumerate(numerical_variables[i:i+n_cols]):
+            with cols[j]:
+                fig, ax = plt.subplots(figsize=(5, 4))
+                sns.boxplot(x='smoking', y=variable, data=df, ax=ax)
+                ax.set_title(f'Distribución de {variable} por Smoking')
+                ax.set_xlabel("Smoking")
+                ax.set_ylabel(variable)
+                st.pyplot(fig)
 
     st.markdown("""
 ### 1. Triglicéridos vs. Tabaquismo
