@@ -32,7 +32,7 @@ try:
         "HDL", "LDL", "hemoglobin", "Urine protein", "serum creatinine",
         "AST", "ALT", "Gtp", "oral dental", "caries", "tartar", "smoking"
     ],
-    "Var": [
+    "Nombre": [
         "ID", "género", "edad", "altura (cm)", "peso (kg)", "cintura (cm)",
         "vista (izquierda)", "vista (derecha)", "audición (izquierda)", "audición (derecha)",
         "presión arterial sistólica", "relajación", "azúcar en sangre en ayunas",
@@ -66,7 +66,6 @@ try:
         return df
 
     df = load_data()
-
     st.subheader("Información inicial del DataFrame")
     buffer = io.StringIO()
     df.info(buf=buffer)
@@ -74,17 +73,26 @@ try:
     st.text(info_str)
     st.write("Descripción estadística:", df.describe())
     st.write("Valores nulos por columna:", df.isnull().sum())
-    df = df.drop(["ID", "oral"], axis=1) # Eliminamos columnas ID y oral
+    
+    #Eliminamos columnas no necesarias
+    df = df.drop(["ID", "oral"], axis=1)
+    
+    #Seleccionar variables numéricas
+numerical_variables = df.select_dtypes(include=np.number).columns.tolist()
+if 'smoking' in numerical_variables:
+    numerical_variables.remove('smoking')
 
-    # Boxplots
-    variables = ['triglyceride', 'serum creatinine', 'systolic']
-    st.subheader("Boxplots por variable y fumadores")
-    fig, axs = plt.subplots(1, len(variables), figsize=(18, 6))
-    for i, variable in enumerate(variables):
-        sns.boxplot(x='smoking', y=variable, data=df, ax=axs[i])
-        axs[i].set_title(f'{variable} vs. smoking')
+st.title("Boxplots por variable numérica vs Smoking")
+
+# Mostrar cada boxplot individualmente
+for variable in numerical_variables:
+    fig, ax = plt.subplots(figsize=(6, 4))
+    sns.boxplot(x='smoking', y=variable, data=df, ax=ax)
+    ax.set_title(f'Distribución de {variable} por Smoking')
+    ax.set_xlabel("Smoking")
+    ax.set_ylabel(variable)
     st.pyplot(fig)
-    st.text("""
+
 1. Triglicéridos vs. Tabaquismo:
 
 La comparación muestra que los individuos fumadores presentan niveles ligeramente más elevados de triglicéridos en comparación con los no fumadores. 
