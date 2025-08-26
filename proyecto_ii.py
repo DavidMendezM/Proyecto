@@ -336,8 +336,8 @@ Se realiza validación cruzada para calcular el K óptimo para la Selección de 
         return scores
 
     # Usa todo el dataset real (balanceado)
-    X_pca = X
-    y_pca = y
+    X_pca = X_selected_df
+    y_pca = y_resampled
 
     models = get_models()
 
