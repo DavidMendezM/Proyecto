@@ -275,21 +275,16 @@ Se realiza validación cruzada para calcular el K óptimo para la Selección de 
 """)
 # === ANÁLISIS PCA EXPLORATORIO ===
     st.subheader("Exploración de PCA con características seleccionadas")
-
-    # Redefinir X e y para PCA
-    X = df.drop('smoking', axis=1)
-    y = df['smoking']
-
-    # PCA sobre las features seleccionadas
-    X = X_resampled
-    y = y_resampled
-
-    # DataFrame con componentes principales
+    # PCA Exploratorio con datos balanceados y seleccionados
+    pca = PCA()
+    X_pca = pca.fit_transform(X_selected_df)
+    # Crear DataFrame de PCA
     pca_df = pd.DataFrame(
         data=X_pca,
         columns=[f'PC{i+1}' for i in range(X_pca.shape[1])]
     )
-    pca_df['smoking'] = y.values
+    # Usar la variable objetivo balanceada
+    pca_df['smoking'] = y_resampled.values
 
     # Gráfico dispersión PC1 vs PC2
     st.write("### Dispersión de PC1 vs PC2")
