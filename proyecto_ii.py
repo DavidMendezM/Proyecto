@@ -373,6 +373,52 @@ Se realiza validación cruzada para calcular el K óptimo para la Selección de 
     st.markdown("""
     En el método de análisis de componente principales (PCA), se observa que con 15 componentes se logra explicar **el 72% de exactitud**. 
     """)
+
+
+st.title("Prueba PCA en Streamlit")
+
+# 🔹 Aquí simulo que ya tienes tus datos balanceados
+# Usa los tuyos: X_selected_df y y_resampled
+from sklearn.datasets import load_iris
+iris = load_iris()
+X_selected_df = pd.DataFrame(iris.data, columns=iris.feature_names)
+y_resampled = pd.Series(iris.target)
+
+# --- PCA ---
+pca = PCA()
+X_pca = pca.fit_transform(X_selected_df)
+
+pca_df = pd.DataFrame(
+    data=X_pca,
+    columns=[f'PC{i+1}' for i in range(X_pca.shape[1])]
+)
+pca_df["target"] = y_resampled.values
+
+# --- Scatterplot ---
+fig, ax = plt.subplots()
+sns.scatterplot(
+    x="PC1", y="PC2", hue="target",
+    data=pca_df, palette="viridis", ax=ax
+)
+ax.set_title("PCA: PC1 vs PC2")
+st.pyplot(fig)
+plt.close(fig)
+
+# --- Heatmap de cargas ---
+loadings = pd.DataFrame(
+    pca.components_.T,
+    columns=[f"PC{i+1}" for i in range(len(pca.components_))],
+    index=X_selected_df.columns
+)
+
+fig, ax = plt.subplots(figsize=(8,6))
+sns.heatmap(loadings, cmap="coolwarm", center=0, annot=False, ax=ax)
+ax.set_title("Matriz de cargas del PCA")
+st.pyplot(fig)
+plt.close(fig)
+
+# --- Varianza explicada ---
+st.write("Varianza explicada acumulada:", pca.explained_variance_ratio_.cumsum())
 except Exception as e:
     st.error("Ocurrió un error al ejecutar la app.")
     st.text(traceback.format_exc())
