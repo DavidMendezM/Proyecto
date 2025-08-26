@@ -166,9 +166,9 @@ X_train_fs, X_test_fs, _ = select_features(X_train, y_train, X_test, mutual_info
 model.fit(X_train_fs, y_train)
 st.write("Accuracy (Info mutua):", accuracy_score(y_test, model.predict(X_test_fs)))
 
-# --- PCA exploratorio ---
 st.subheader("Exploración PCA con características seleccionadas")
-selector = SelectKBest(score_func=f_classif, k=18)
+
+selector = SelectKBest(score_func=f_classif, k=5)  # pon 5 para probar rápido
 X_selected = selector.fit_transform(X, y)
 selected_features_mask = selector.get_support()
 X_selected_df = pd.DataFrame(X_selected, columns=X.columns[selected_features_mask])
@@ -185,7 +185,7 @@ st.pyplot(fig)
 
 # Heatmap loadings
 fig, ax = plt.subplots(figsize=(12, 8))
-sns.heatmap(pca.components_, cmap='viridis', annot=True, fmt=".2f",
+sns.heatmap(pca.components_, cmap='viridis', annot=False,
             xticklabels=X_selected_df.columns,
             yticklabels=[f'PC{i+1}' for i in range(pca.n_components_)],
             ax=ax)
