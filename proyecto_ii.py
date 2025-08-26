@@ -273,7 +273,60 @@ Se realiza validación cruzada para calcular el K óptimo para la Selección de 
     El mejor modelo para la selección de variables es: 
     ANOVA, ya que presenta un valor mayor de exactitud. 
 """)
+# === ANÁLISIS PCA EXPLORATORIO ===
+    st.subheader("Exploración de PCA con características seleccionadas")
 
+    # Redefinir X e y para PCA
+    X = df.drop('smoking', axis=1)
+    y = df['smoking']
+
+    # PCA sobre las features seleccionadas
+    pca = PCA()
+    X_pca = pca.fit_transform(X_selected_df)
+
+    # DataFrame con componentes principales
+    pca_df = pd.DataFrame(
+        data=X_pca,
+        columns=[f'PC{i+1}' for i in range(X_pca.shape[1])]
+    )
+    pca_df['smoking'] = y.values
+
+    # Gráfico dispersión PC1 vs PC2
+    st.write("### Dispersión de PC1 vs PC2")
+    fig, ax = plt.subplots(figsize=(8, 6))
+    sns.scatterplot(x='PC1', y='PC2', hue='smoking', data=pca_df, alpha=0.5, ax=ax)
+    ax.set_title('PC1 vs PC2')
+    st.pyplot(fig)
+
+    # Heatmap de loadings
+    st.write("### Heatmap de cargas de los componentes")
+    fig, ax = plt.subplots(figsize=(12, 8))
+    sns.heatmap(
+        pca.components_,
+        cmap='viridis',
+        annot=True,
+        fmt=".2f",
+        xticklabels=X_selected_df.columns,
+        yticklabels=[f'PC{i+1}' for i in range(pca.n_components_)],
+        ax=ax
+    )
+    ax.set_title("PCA Loadings Heatmap")
+    st.pyplot(fig)
+
+    # Varianza explicada
+    explained_variance_ratio = pca.explained_variance_ratio_
+    cumulative_explained_variance = explained_variance_ratio.cumsum()
+
+    st.write("### Varianza explicada acumulada")
+    fig, ax = plt.subplots(figsize=(8, 4))
+    ax.plot(range(1, len(cumulative_explained_variance) + 1),
+            cumulative_explained_variance,
+            marker='o', linestyle='--')
+    ax.set_title("Cumulative Explained Variance by Number of Components")
+    ax.set_xlabel("Número de Componentes")
+    ax.set_ylabel("Varianza Explicada Acumulada")
+    ax.grid(True)
+    st.pyplot(fig)
     
     def get_models():
         models = dict()
