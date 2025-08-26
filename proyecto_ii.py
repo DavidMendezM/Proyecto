@@ -281,8 +281,8 @@ Se realiza validación cruzada para calcular el K óptimo para la Selección de 
     y = df['smoking']
 
     # PCA sobre las features seleccionadas
-    pca = PCA()
-    X_pca = pca.fit_transform(X_selected_df)
+    X = X_resampled
+    y = y_resampled
 
     # DataFrame con componentes principales
     pca_df = pd.DataFrame(
