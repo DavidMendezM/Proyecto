@@ -74,19 +74,19 @@ try:
     st.text(info_str)
     st.write("Descripción estadística:", df.describe())
     st.write("Valores nulos por columna:", df.isnull().sum())
-    
-    #Eliminamos columnas no necesarias
+
+    # Eliminamos columnas no necesarias
     df = df.drop(["ID", "oral"], axis=1)
-    
-    #Seleccionar variables numéricas
+
+    # Seleccionar variables numéricas
     numerical_variables = df.select_dtypes(include=np.number).columns.tolist()
     if 'smoking' in numerical_variables:
         numerical_variables.remove('smoking')
 
     st.title("Boxplots por variable numérica vs Smoking")
 
-    n_cols = 4 
-    
+    n_cols = 4
+
     for i in range(0, len(numerical_variables), n_cols):
         cols = st.columns(n_cols)
         for j, variable in enumerate(numerical_variables[i:i+n_cols]):
@@ -220,8 +220,8 @@ Se realiza validación cruzada para calcular el K óptimo para la Selección de 
     selected_features_mut = X_train.columns[selected_mask_mut]
     selected_scores_mut = fs_mut.scores_[selected_mask_mut]
     scores_df_mut = pd.DataFrame({
-    'feature': selected_features_mut,
-    'score': selected_scores_mut
+        'feature': selected_features_mut,
+        'score': selected_scores_mut
     }).sort_values('score', ascending=False)
     st.bar_chart(scores_df_mut.set_index('feature'))
     
@@ -273,7 +273,7 @@ Se realiza validación cruzada para calcular el K óptimo para la Selección de 
     El mejor modelo para la selección de variables es: 
     ANOVA, ya que presenta un valor mayor de exactitud. 
 """)
-# === ANÁLISIS PCA EXPLORATORIO ===
+    # === ANÁLISIS PCA EXPLORATORIO ===
     st.subheader("Exploración de PCA con características seleccionadas")
 
     # Redefinir X e y para PCA
@@ -327,7 +327,7 @@ Se realiza validación cruzada para calcular el K óptimo para la Selección de 
     ax.set_ylabel("Varianza Explicada Acumulada")
     ax.grid(True)
     st.pyplot(fig)
-    
+
     def get_models():
         models = dict()
         for i in range(1, 16):  # Hasta 15 componentes, puedes subirlo si tu máquina lo aguanta
